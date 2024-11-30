@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 // import Image from '../assets/img/why-img.png'
 import Lottie from "lottie-react";
