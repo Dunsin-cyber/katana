@@ -1,17 +1,6 @@
 "use client";
 import React from "react";
 import { useState } from "react";
-import {
-  Box,
-  Text,
-  Flex,
-  Container,
-  Center,
-  Button,
-  Image,
-  Heading,
-  Show,
-} from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 // import { AppContext } from "../../Context";
 import Footer from "../Footer";

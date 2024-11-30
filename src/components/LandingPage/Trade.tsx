@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { currency } from "./data";
-import { IoIosArrowForward } from "react-icons/io";
+// import { IoIosArrowForward } from "react-icons/io";
 
 const Trade = () => {
   return (

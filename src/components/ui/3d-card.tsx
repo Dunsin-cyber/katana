@@ -1,5 +1,6 @@
+"use client";
 import { cn } from "../lib/utils";
-import {Image} from "@chakra-ui/react";
+import { Image } from "@chakra-ui/react";
 import React, {
   createContext,
   useState,
