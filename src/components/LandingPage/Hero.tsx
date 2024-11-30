@@ -73,7 +73,7 @@ function Hero() {
               Empowering Collaborative Asset Ownership with
               <span className="text-[#A52A2A]"> Ethereum </span>
               and
-              <span className="text-[#A52A2A]"> Ethena's </span>
+              <span className="text-[#A52A2A]"> Ethena&apos;s </span>
               Cutting-Edge Innovation.
             </h1>
             <p

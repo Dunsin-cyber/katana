@@ -1,6 +1,6 @@
 import { cn } from "../lib/utils";
 // import Link, { LinkProps } from "next/link";
-import {Link} from "react-router-dom";
+import Link from "next/link";
 import React, { useState, createContext, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { IconMenu2, IconX } from "@tabler/icons-react";
@@ -110,7 +110,7 @@ export const MobileSidebar = ({
   children,
   ...props
 }: React.ComponentProps<"div">) => {
-  const { open, setOpen } = useSidebar(); 
+  const { open, setOpen } = useSidebar();
   return (
     <>
       <div
@@ -162,12 +162,12 @@ export const SidebarLink = ({
 }: {
   link: Links;
   className?: string;
-  props?:any /* LinkProps */;
+  props?: any /* LinkProps */;
 }) => {
   const { open, animate } = useSidebar();
   return (
     <Link
-      to={link.href}
+      href={link.href}
       className={cn(
         "flex items-center  justify-start gap-2  group/sidebar py-2",
         className

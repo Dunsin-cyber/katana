@@ -1,45 +1,47 @@
-import { cn } from '../lib/utils'
-import { AnimatePresence, motion } from 'framer-motion'
-import { Image, Progress, Tag } from '@chakra-ui/react'
-import { useState } from 'react'
-import { CardContainer, CardItem } from './3d-card'
-import { CampaignT } from '../redux/types'
-import { Link } from 'react-router-dom'
+import { cn } from "../lib/utils";
+import { AnimatePresence, motion } from "framer-motion";
+import { Image } from "@chakra-ui/react";
+import { useState } from "react";
+import { CardContainer, CardItem } from "./3d-card";
+// import { CampaignT } from "../redux/types";
+import Link from "next/link";
+import { Tag } from "@/components/ui/tag";
+// import { ProgressBar, ProgressRoot } from "@/components/ui/progress";
 
 export const HoverEffect = ({
   items,
   className,
 }: {
-  items: CampaignT[]
-  className?: string
+  items: any;
+  className?: string;
 }) => {
   const pics = [
-    'pic-1.jpg',
-    'pic-2.jpg',
-    'pic-3.jpg',
-    'pic-4.jpg',
-    'pic-5.jpg',
-    'pic-6.jpg',
-    'pic-7.jpg',
-    'pic-8.jpg',
-    'pic-9.jpg',
-    'pic-10.jpg',
-    'coin.jpg',
-  ]
+    "pic-1.jpg",
+    "pic-2.jpg",
+    "pic-3.jpg",
+    "pic-4.jpg",
+    "pic-5.jpg",
+    "pic-6.jpg",
+    "pic-7.jpg",
+    "pic-8.jpg",
+    "pic-9.jpg",
+    "pic-10.jpg",
+    "coin.jpg",
+  ];
 
-  let [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
-  const random = Math.floor(Math.random() * pics.length)
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const random = Math.floor(Math.random() * pics.length);
 
   return (
     <div
       className={cn(
-        'grid grid-cols-1 md:grid-cols-3  lg:grid-cols-4  py-10',
+        "grid grid-cols-1 md:grid-cols-3  lg:grid-cols-4  py-10",
         className
       )}
     >
       {items.map((item, idx) => (
         <Link
-          to={`/details/${item.id}`}
+          href={`/details/${item.id}`}
           key={item?.id}
           className="relative group  block p-2 h-full w-full"
           onMouseEnter={() => setHoveredIndex(idx)}
@@ -70,7 +72,8 @@ export const HoverEffect = ({
             <CardContainer className="inter-var">
               <ImageSection src={`/dummyPic/${item?.image}`} />
             </CardContainer>
-            <Progress
+            {/* <ProgressRoot
+              maxW="240px"
               size="sm"
               borderRadius="md"
               value={
@@ -78,10 +81,11 @@ export const HoverEffect = ({
                   ? 100
                   : (item.amountDonated / item.amountRequired) * 100
               }
-            />
+            ></ProgressRoot>
+            <ProgressBar /> */}
             <p className="py-3">
               ${item.amountDonated.toLocaleString()}
-              {''} raised
+              {""} raised
             </p>
             <div className="flex flex-row justify-between gap-y-3">
               <div className=" flex-1 gap-y-3">
@@ -107,20 +111,20 @@ export const HoverEffect = ({
         </Link>
       ))}
     </div>
-  )
-}
+  );
+};
 
 export const Card = ({
   className,
   children,
 }: {
-  className?: string
-  children: React.ReactNode
+  className?: string;
+  children: React.ReactNode;
 }) => {
   return (
     <div
       className={cn(
-        'rounded-2xl h-full w-full p-4 overflow-hidden bg-black border border-[#2C014D] dark:border-[#2C014D]/[0.2] group-hover:border-[#2C014D] relative z-20',
+        "rounded-2xl h-full w-full p-4 overflow-hidden bg-black border border-[#2C014D] dark:border-[#2C014D]/[0.2] group-hover:border-[#2C014D] relative z-20",
         className
       )}
     >
@@ -128,46 +132,46 @@ export const Card = ({
         <div className="p-4">{children}</div>
       </div>
     </div>
-  )
-}
+  );
+};
 export const CardTitle = ({
   className,
   children,
 }: {
-  className?: string
-  children: React.ReactNode
+  className?: string;
+  children: React.ReactNode;
 }) => {
   return (
-    <h4 className={cn('text-zinc-100 font-bold tracking-wide mt-4', className)}>
+    <h4 className={cn("text-zinc-100 font-bold tracking-wide mt-4", className)}>
       {children}
     </h4>
-  )
-}
+  );
+};
 export const CardDescription = ({
   className,
   children,
 }: {
-  className?: string
-  children: React.ReactNode
+  className?: string;
+  children: React.ReactNode;
 }) => {
   return (
     <p
       className={cn(
-        'mt-1 text-zinc-400 tracking-wide leading-relaxed text-sm',
+        "mt-1 text-zinc-400 tracking-wide leading-relaxed text-sm",
         className
       )}
     >
       {children}
     </p>
-  )
-}
+  );
+};
 
 export const ImageSection = ({
   className,
   src,
 }: {
-  className?: string
-  src: string
+  className?: string;
+  src: string;
 }) => {
   return (
     <CardItem translateZ="100" className="w-full mt-1">
@@ -179,5 +183,5 @@ export const ImageSection = ({
         alt="thumbnail"
       />
     </CardItem>
-  )
-}
+  );
+};
