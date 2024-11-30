@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { FaXTwitter, FaGithub, FaMedium } from "react-icons/fa6";
 import { FaDiscord } from "react-icons/fa";
