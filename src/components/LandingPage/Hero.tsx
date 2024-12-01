@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Navbar from "../Navbar/Nav2";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import { FlipWords } from "@/components/ui/flip-words";
-import Lottie from "lottie-react";
+// import Lottie from "lottie-react";
 import ICON from "@/components/GIF/home-icon.json";
 
 const words = [
@@ -83,7 +83,7 @@ function Hero() {
             data-aos="fade-up"
             data-aos-delay="600"
           >
-            <Lottie animationData={ICON} loop={true} />
+            {/* <Lottie animationData={ICON} loop={true} /> */}
           </div>
         </div>
       </div>
