@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 // import Image from '../assets/img/why-img.png'
-import { useLottie } from "lottie-react";
+// import { useLottie } from "lottie-react";
 import ICON from "@/components/GIF/pizza.json";
 
 const Why = () => {
@@ -10,7 +10,7 @@ const Why = () => {
     loop: true,
   };
 
-  const { View } = useLottie(options);
+  // const { View } = useLottie(options);
   return (
     <section className="">
       <div className="container mx-auto">
