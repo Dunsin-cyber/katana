@@ -9,7 +9,7 @@ const Why = () => {
     return null; // Prevent rendering on the server
   }
   const options = {
-    animationData: ICON,
+    animationData: require("../GIF/pizza.json"),
     loop: true,
   };
 

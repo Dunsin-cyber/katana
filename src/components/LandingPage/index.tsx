@@ -7,6 +7,9 @@ import Stats from "./Stats";
 import Hero from "./Hero";
 
 function LandingPage() {
+  if (typeof window === "undefined") {
+    return null; // Prevent rendering on the server
+  }
   return (
     <div className="bg-custom-gradient">
       <Hero />

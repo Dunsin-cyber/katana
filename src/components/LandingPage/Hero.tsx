@@ -40,7 +40,7 @@ function Hero() {
   const words_ = ["High-Value Digital Assets", "music", "art"];
 
   const options = {
-    animationData: ICON,
+    animationData: require("../GIF/home-icon.json"),
     loop: true,
   };
 
