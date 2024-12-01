@@ -1,21 +1,12 @@
 "use client";
-
 import React, { useState } from "react";
 import { IoIosArrowDroprightCircle } from "react-icons/io";
 import { useRouter } from "next/navigation";
-// import { AppContext } from "../../Context";
-import toast from "react-hot-toast";
 import Navbar from "../Navbar/Nav2";
-import Footer from "../Footer";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import { FlipWords } from "@/components/ui/flip-words";
 import Lottie from "lottie-react";
 import ICON from "@/components/GIF/home-icon.json";
-// import WaitlistModal from "../Waitlist/WaitlistModal.jsx";
-// import supabase from "../../Services/supabase";
-import Why from "./Why";
-import Trade from "./Trade";
-import Stats from "./Stats";
 
 const words = [
   {
