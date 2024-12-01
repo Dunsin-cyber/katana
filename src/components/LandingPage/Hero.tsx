@@ -21,7 +21,7 @@ function Hero() {
   // const { View } = useLottie(options);
   return (
     <section>
-      <BackgroundBeams />
+      {/* <BackgroundBeams /> */}
       <div className="container mx-auto">
         <Navbar />
         <div className="flex flex-col items-center lg:flex-row mt-[30px]">
