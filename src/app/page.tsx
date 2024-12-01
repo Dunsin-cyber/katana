@@ -3,7 +3,7 @@ import React from "react";
 import Page from "@/components/LandingPage";
 
 function Home() {
-  return <Page />;
+  return <div>Hello</div>;
 }
 
 export default Home;
