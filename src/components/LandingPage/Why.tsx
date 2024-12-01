@@ -5,11 +5,8 @@ import { useLottie } from "lottie-react";
 import ICON from "@/components/GIF/pizza.json";
 
 const Why = () => {
-  if (typeof window === "undefined") {
-    return null; // Prevent rendering on the server
-  }
   const options = {
-    animationData: require("../GIF/pizza.json"),
+    animationData: ICON,
     loop: true,
   };
 
