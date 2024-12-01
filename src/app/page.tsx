@@ -6,4 +6,4 @@ function Home() {
   return <Page />;
 }
 
-export default LandingPage;
+export default Home;
