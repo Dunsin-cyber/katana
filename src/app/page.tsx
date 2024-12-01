@@ -2,8 +2,10 @@
 import React from "react";
 import Page from "@/components/LandingPage/index";
 
-function Home() {
-  return <Page />;
+export default function Home() {
+  return (
+    <div>
+      <Page />
+    </div>
+  );
 }
-
-export default Home;
