@@ -45,7 +45,7 @@ function ConnectWallet() {
               fontSize={{ base: "24px", md: "32px" }}
               mx={"8%"}
             >
-              Connect your wallet to buy nfts and other assets
+              Connect your wallet to buy shares of music, arts and other assets
             </Text>
             <Flex mt={8}>
               <button className="btn" onClick={() => router.push("/explore")}>

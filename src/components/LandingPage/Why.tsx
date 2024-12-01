@@ -27,7 +27,7 @@ const Why = () => {
               data-aos="fade-up"
               data-aos-delay="600"
             >
-              {View}
+              {/* {View} */}
               {/* <Lottie animationData={ICON} loop={true} /> */}
             </div>
             {/* <img src={"/img/why-img.png"} className="" /> */}
