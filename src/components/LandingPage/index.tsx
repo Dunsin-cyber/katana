@@ -21,9 +21,9 @@ function LandingPage() {
   return (
     <div className="bg-custom-gradient">
       <Hero />
-      <Stats />
-      <Why />
-      <Trade />
+      {/* <Stats /> */}
+      {/* <Why /> */}
+      {/* <Trade /> */}
       <Footer />
     </div>
   );
