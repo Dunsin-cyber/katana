@@ -33,6 +33,9 @@ const words = [
 ];
 
 function Hero() {
+  if (typeof window === "undefined") {
+    return null; // Prevent rendering on the server
+  }
   const router = useRouter();
   const words_ = ["High-Value Digital Assets", "music", "art"];
 
