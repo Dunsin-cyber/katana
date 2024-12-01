@@ -1,11 +1,11 @@
 "use client";
 import React from "react";
-// import Page from "@/components/LandingPage/index";
-import { redirect } from "next/navigation";
+import Page from "@/components/LandingPage/index";
 
 export default function Home() {
-  setTimeout(() => {
-    redirect("home");
-  }, 500);
-  return <div></div>;
+  return (
+    <div>
+      <Page />
+    </div>
+  );
 }

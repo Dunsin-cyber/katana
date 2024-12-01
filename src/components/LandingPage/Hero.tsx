@@ -6,6 +6,7 @@ import Navbar from "../Navbar/Nav2";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import { FlipWords } from "@/components/ui/flip-words";
 // import Lottie from "lottie-react";
+import { useLottie } from "lottie-react";
 import ICON from "@/components/GIF/home-icon.json";
 
 const words = [
@@ -35,6 +36,12 @@ function Hero() {
   const router = useRouter();
   const words_ = ["High-Value Digital Assets", "music", "art"];
 
+  const options = {
+    animationData: ICON,
+    loop: true,
+  };
+
+  const { View } = useLottie(options);
   return (
     <section>
       <BackgroundBeams />
@@ -83,6 +90,7 @@ function Hero() {
             data-aos="fade-up"
             data-aos-delay="600"
           >
+            {View}
             {/* <Lottie animationData={ICON} loop={true} /> */}
           </div>
         </div>

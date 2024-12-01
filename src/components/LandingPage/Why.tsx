@@ -1,10 +1,16 @@
 "use client";
 import React from "react";
 // import Image from '../assets/img/why-img.png'
-// import Lottie from "lottie-react";
+import { useLottie } from "lottie-react";
 import ICON from "@/components/GIF/pizza.json";
 
 const Why = () => {
+  const options = {
+    animationData: ICON,
+    loop: true,
+  };
+
+  const { View } = useLottie(options);
   return (
     <section className="">
       <div className="container mx-auto">
@@ -21,6 +27,7 @@ const Why = () => {
               data-aos="fade-up"
               data-aos-delay="600"
             >
+              {View}
               {/* <Lottie animationData={ICON} loop={true} /> */}
             </div>
             {/* <img src={"/img/why-img.png"} className="" /> */}
