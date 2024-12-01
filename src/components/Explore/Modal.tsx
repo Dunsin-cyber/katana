@@ -67,9 +67,9 @@ const Modal = () => {
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-gradient-to-br from-[#2C120D] to-[#6E3B3B] text-white rounded-lg shadow-lg p-8 w-[90%] max-w-lg">
+          <div className="bg-gradient-to-br from-[#2C120D] to-[#6E3B3B] text-white rounded-lg shadow-lg w-[90%] max-w-lg max-h-[90vh] overflow-hidden">
             {/* Modal Header */}
-            <div className="flex justify-between items-center mb-4">
+            <div className="flex justify-between items-center p-4 border-b border-gray-600">
               <h2 className="text-2xl font-bold">{data[0].title}</h2>
               <button
                 className="text-gray-300 hover:text-white transition"
@@ -79,67 +79,70 @@ const Modal = () => {
               </button>
             </div>
 
-            {/* Modal Content */}
-            <div className="mb-6">
-              <p className="mb-4">{data[0].description}</p>
-              <img
-                src={`/dummyPic/${data[0]?.src}`}
-                alt={data[0].title}
-                className="rounded-md shadow-md w-full"
-              />
-              <a
-                href={data[0].link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-[#FFD700] underline hover:text-white"
-              >
-                Visit {data[0].title}
-              </a>
-            </div>
-
-            {/* Slicing Options */}
-            <div className="mb-6">
-              <label className="block mb-2 text-sm">Number of Slices:</label>
-              <input
-                type="number"
-                min="1"
-                className="w-full p-2 rounded-md text-white"
-                value={sliceCount}
-                onChange={(e) => setSliceCount(parseInt(e.target.value) || 1)}
-              />
-              <button
-                onClick={handleSlice}
-                className="bg-[#FFD700] text-black py-2 px-4 mt-4 rounded-full hover:scale-105 transition"
-              >
-                Slice It
-              </button>
-            </div>
-
-            {/* Sliced Pieces */}
-            {imageLoaded && slices.length > 0 && (
-              <div>
-                <h3 className="text-lg font-bold mb-2">Sliced Pieces:</h3>
-                <div className="grid grid-cols-2 gap-4">
-                  {slices.map((slice, index) => (
-                    <div
-                      key={slice.id}
-                      className="bg-[#F0E68C] text-black p-4 rounded-md text-center"
-                    >
-                      <img
-                        src={imageSlices[index]}
-                        alt={`Slice ${slice.id}`}
-                        className="mb-2"
-                      />
-                      <p>Slice {slice.id}</p>
-                      <p>Price: ${slice.price}</p>
-                    </div>
-                  ))}
-                </div>
-                <p className="mt-4">
-                  Price per slice: <strong>${pricePerSlice}</strong>
-                </p>
+            {/* Scrollable Content */}
+            <div className="p-4 overflow-y-auto max-h-[75vh]">
+              {/* Modal Content */}
+              <div className="mb-6">
+                <p className="mb-4">{data[0].description}</p>
+                <img
+                  src={`/dummyPic/${data[0]?.src}`}
+                  alt={data[0].title}
+                  className="rounded-md shadow-md w-full"
+                />
+                <a
+                  href={data[0].link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#FFD700] underline hover:text-white"
+                >
+                  Visit {data[0].title}
+                </a>
               </div>
-            )}
+
+              {/* Slicing Options */}
+              <div className="mb-6">
+                <label className="block mb-2 text-sm">Number of Slices:</label>
+                <input
+                  type="number"
+                  min="1"
+                  className="w-full p-2 rounded-md text-black"
+                  value={sliceCount}
+                  onChange={(e) => setSliceCount(parseInt(e.target.value) || 1)}
+                />
+                <button
+                  onClick={handleSlice}
+                  className="bg-[#FFD700] text-black py-2 px-4 mt-4 rounded-full hover:scale-105 transition"
+                >
+                  Slice It
+                </button>
+              </div>
+
+              {/* Sliced Pieces */}
+              {imageLoaded && slices.length > 0 && (
+                <div>
+                  <h3 className="text-lg font-bold mb-2">Sliced Pieces:</h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    {slices.map((slice, index) => (
+                      <div
+                        key={slice.id}
+                        className="bg-[#F0E68C] text-black p-4 rounded-md text-center"
+                      >
+                        <img
+                          src={imageSlices[index]}
+                          alt={`Slice ${slice.id}`}
+                          className="mb-2"
+                        />
+                        <p>Slice {slice.id}</p>
+                        <p>Price: ${slice.price}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <p className="mt-4">
+                    Price per slice: <strong>${pricePerSlice}</strong>
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}
