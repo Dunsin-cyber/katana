@@ -20,11 +20,13 @@ import { BackgroundBeams } from "@/components/ui/background-beams";
 import { BackgroundLines } from "@/components/ui/background-lines";
 // import WalletButton from "../WalletButton";
 import OptionModal from "./Modal";
+import { useRouter } from "next/navigation";
 // import { useAppDispatch, useAppSelector } from "../../redux/hook";
 // import { CampaignT } from "../../redux/types";
 // import { useGetAllCampaigns } from "../functions";
 
 function ConnectWallet() {
+  const router = useRouter();
   // const dispatch = useAppDispatch();
   // const wallet = useAppSelector((state) => state.tronData);
   // const campaigns = useAppSelector((state) => state.campaign);
@@ -45,7 +47,12 @@ function ConnectWallet() {
             >
               Connect your wallet to buy nfts and other assets
             </Text>
-            <Flex mt={8}>{/* <WalletButton /> */}</Flex>
+            <Flex mt={8}>
+              <button className="btn" onClick={() => router.push("/explore")}>
+                Connect Wallet
+              </button>
+              {/* <ConnectButton /> */}
+            </Flex>
           </Center>
         </Container>
         {/* <OptionModal onToggle={onToggle} isOpen={isOpen} /> */}

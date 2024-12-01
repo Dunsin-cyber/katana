@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { Provider } from "@/components/ui/provider";
 // import { Toaster } from "react-hot-toast";
+import WalletProvider from "@/utils";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,12 +29,14 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="dark">
       <Provider>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          {/* <Toaster /> */}
-          {children}
-        </body>
+        <WalletProvider>
+          <body
+            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          >
+            {/* <Toaster /> */}
+            {children}
+          </body>
+        </WalletProvider>
       </Provider>
     </html>
   );

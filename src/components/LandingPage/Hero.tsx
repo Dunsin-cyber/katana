@@ -9,29 +9,6 @@ import { FlipWords } from "@/components/ui/flip-words";
 import { useLottie } from "lottie-react";
 import ICON from "@/components/GIF/home-icon.json";
 
-const words = [
-  {
-    text: "Easily",
-    className: "text-white sm:text-4xl",
-  },
-  {
-    text: "raise",
-    className: "text-white sm:text-4xl",
-  },
-  {
-    text: "funds",
-    className: "text-white sm:text-4xl",
-  },
-  {
-    text: "on",
-    className: "text-white sm:text-4xl",
-  },
-  {
-    text: "Tron.",
-    className: "text-purple-500 dark:text-purple-500 sm:text-4xl",
-  },
-];
-
 function Hero() {
   const router = useRouter();
   const words_ = ["High-Value Digital Assets", "music", "art"];

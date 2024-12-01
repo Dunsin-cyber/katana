@@ -8,6 +8,7 @@ import { CardContainer, CardItem } from "./3d-card";
 import Link from "next/link";
 import { Tag } from "@/components/ui/tag";
 // import { ProgressBar, ProgressRoot } from "@/components/ui/progress";
+import { useClient } from "@/context";
 
 export const HoverEffect = ({
   items,
@@ -16,22 +17,8 @@ export const HoverEffect = ({
   items: any;
   className?: string;
 }) => {
-  const pics = [
-    "pic-1.jpg",
-    "pic-2.jpg",
-    "pic-3.jpg",
-    "pic-4.jpg",
-    "pic-5.jpg",
-    "pic-6.jpg",
-    "pic-7.jpg",
-    "pic-8.jpg",
-    "pic-9.jpg",
-    "pic-10.jpg",
-    "coin.jpg",
-  ];
-
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const random = Math.floor(Math.random() * pics.length);
+  const { assignId } = useClient();
 
   return (
     <div
@@ -41,75 +28,56 @@ export const HoverEffect = ({
       )}
     >
       {items.map((item, idx) => (
-        <Link
-          href={`/details/${item.id}`}
-          key={item?.id}
-          className="relative group  block p-2 h-full w-full"
-          onMouseEnter={() => setHoveredIndex(idx)}
-          onMouseLeave={() => setHoveredIndex(null)}
+        <div
+          onClick={() => {
+            assignId(item.id);
+          }}
         >
-          <AnimatePresence>
-            {hoveredIndex === idx && (
-              <motion.span
-                className="absolute inset-0 h-full w-full bg-[#2C014D] dark:bg-slate-800/[0.8] block  rounded-3xl"
-                layoutId="hoverBackground"
-                initial={{ opacity: 0 }}
-                animate={{
-                  opacity: 1,
-                  transition: { duration: 0.15 },
-                }}
-                exit={{
-                  opacity: 0,
-                  transition: { duration: 0.15, delay: 0.2 },
-                }}
-              />
-            )}
-          </AnimatePresence>
-          <Card>
-            <CardTitle>{item.title}</CardTitle>
-            <CardDescription>
-              {item.description.slice(0, 100)}...
-            </CardDescription>
-            <CardContainer className="inter-var">
-              <ImageSection src={`/dummyPic/${item?.image}`} />
-            </CardContainer>
-            {/* <ProgressRoot
-              maxW="240px"
-              size="sm"
-              borderRadius="md"
-              value={
-                item.donationComplete
-                  ? 100
-                  : (item.amountDonated / item.amountRequired) * 100
-              }
-            ></ProgressRoot>
-            <ProgressBar /> */}
-            <p className="py-3">
-              ${item.amountDonated.toLocaleString()}
-              {""} raised
-            </p>
-            <div className="flex flex-row justify-between gap-y-3">
-              <div className=" flex-1 gap-y-3">
-                <p className="text-zinc-400 tracking-wide leading-relaxed text-sm">
-                  Supported Tokens
-                </p>
-                <div className="flex-1 gap-x-5">
-                  <Tag>TRX</Tag> <Tag>USDT</Tag> <Tag>JPX</Tag>
-                </div>
-              </div>
-              <div>
+          <Link
+            href={"#"}
+            key={item?.id}
+            className="relative group  block p-2 h-full w-full"
+            onMouseEnter={() => setHoveredIndex(idx)}
+            onMouseLeave={() => setHoveredIndex(null)}
+          >
+            <AnimatePresence>
+              {hoveredIndex === idx && (
+                <motion.span
+                  className="absolute inset-0 h-full w-full bg-[#2C014D] dark:bg-slate-800/[0.8] block  rounded-3xl"
+                  layoutId="hoverBackground"
+                  initial={{ opacity: 0 }}
+                  animate={{
+                    opacity: 1,
+                    transition: { duration: 0.15 },
+                  }}
+                  exit={{
+                    opacity: 0,
+                    transition: { duration: 0.15, delay: 0.2 },
+                  }}
+                />
+              )}
+            </AnimatePresence>
+            <Card>
+              <CardTitle>{item.title}</CardTitle>
+              <CardDescription>
+                {item.description.slice(0, 100)}...
+              </CardDescription>
+              <CardContainer className="inter-var">
+                <ImageSection src={`/dummyPic/${item?.src}`} />
+              </CardContainer>
+              <div className="flex flex-row justify-between gap-y-3">
                 <div className=" flex-1 gap-y-3">
                   <p className="text-zinc-400 tracking-wide leading-relaxed text-sm">
-                    Funding Type
+                    Supported Tokens
                   </p>
                   <div className="flex-1 gap-x-5">
-                    <Tag>{item?.donationType}</Tag>
+                    <Tag>USDe</Tag> <Tag>ENA</Tag>
                   </div>
                 </div>
               </div>
-            </div>
-          </Card>
-        </Link>
+            </Card>
+          </Link>
+        </div>
       ))}
     </div>
   );
