@@ -22,9 +22,26 @@ contract ContentManager {
         address artist,
         uint256 totalSupply
     );
+    
+    event TokensTransferred(
+        uint256 indexed contentId,
+        address from,
+        address to,
+        uint256 amount
+    );
+
+    event MetadataUpdated(
+        uint256 indexed contentId,
+        string metadatURI
+    );
 
     modifier onlyOwner() {
         require(msg.sender == owner, "Not authorized");
+        _;
+    }
+
+    modifier onlyArtist(uint256 contentId) {
+        require(msg.sender == contents[contentId].artist, "Not the artist");
         _;
     }
 
@@ -55,5 +72,44 @@ contract ContentManager {
         emit ContentUploaded(contentCounter, tokenAddress, msg.sender, _totalSupply);
 
         contentCounter++;
+    }
+
+    function transferTokens(
+        uint256 contentId,
+        address to,
+        uint256 amount
+    ) external {
+        require(contentId < contentCounter, "Invalid content ID");
+        require(to != address(0), "Cannot transfer to zero address");
+        require(amount > 0, "Amount must be greater than zero");
+
+        Content memory content = contents[contentId];
+        FractionalToken token = FractionalToken(content.tokenAddress);
+
+        // approvalhas to be made via frontend
+        token.transferFrom(msg.sender, to, amount);
+
+        emit TokensTransferred(contentId, msg.sender, to, amount);
+    }
+
+    function getContent(uint256 contentId)
+        external
+        view
+        returns (
+            address tokenAddress,
+            address artist,
+            string memory metadataURI,
+            uint256 totalSupply
+        )
+    {
+        require(contentId < contentCounter, "Invalid content ID");
+
+        Content memory content = contents[contentId];
+        return (content.tokenAddress, content.artist, content.metadataURI, content.totalSupply);
+    }
+
+    function withdrawOwnership(address newOwner) external onlyOwner {
+        require(newOwner != address(0), "New owner cannot be zero address");
+        owner = newOwner;
     }
 }
