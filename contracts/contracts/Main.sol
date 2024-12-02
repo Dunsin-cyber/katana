@@ -4,7 +4,9 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "./FractionalToken.sol";
 
-contract ContentManager {
+contract Main {
+
+
     struct Content {
         address tokenAddress; 
         address artist;       
@@ -15,6 +17,7 @@ contract ContentManager {
     mapping(uint256 => Content) public contents;
     uint256 public contentCounter;
     address public owner;
+    address public artist;
 
     event ContentUploaded(
         uint256 contentId,
