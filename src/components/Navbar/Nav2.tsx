@@ -7,7 +7,7 @@ function Nav2() {
   const router = useRouter();
 
   return (
-    <div className="flex justify-between mt-6">
+    <div className="flex justify-between pt-6">
       <div className="flex">
         <p className="text-2xl  font-extrabold">
           <Logo />
