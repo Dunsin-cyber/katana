@@ -33,7 +33,7 @@ function Hero() {
               <span className="text-[#A52A2A]"> Ethena&apos;s </span>
               Cutting-Edge Innovation.
             </h1>
-            <p
+            <div
               className="max-w-[440px] text-[16px] lg:text-[24px] leading-relaxed mb-8"
               data-aos="fade-down"
               data-aos-delay="600"
@@ -41,7 +41,7 @@ function Hero() {
               Slicing
               <FlipWords className="text-[#A52A2A]" words={words_} />
               into Opportunities for Everyone.{" "}
-            </p>
+            </div>
             <button
               className="btn gap-x-6 pl-6 text-sm lg:h-16 lg:text-base z-50"
               data-aos="fade-down"
@@ -60,7 +60,7 @@ function Hero() {
             data-aos="fade-up"
             data-aos-delay="600"
           >
-            {/* <Lottie animationData={ICON} loop={true} /> */}
+            <Lottie animationData={ICON} loop={true} />
           </div>
         </div>
       </div>
