@@ -2,9 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* :root {
- --background: #ffffff; 
-  --foreground: #171717;
+/*:root {
+  --background: var(--background);
+  --foreground: var(--foreground);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,7 +22,7 @@
 
 @layer base {
   body {
-    @apply text-white leading-normal bg-background text-foreground;
+    @apply text-white h-[100vh] leading-normal bg-background text-foreground;
   }
   .h3 {
     @apply text-[22px] lg:text-[32px] font-bold;
@@ -32,7 +32,7 @@
   }
 
   .section {
-    @apply py-12 lg:py-24;
+    @apply py-12 lg:py-24 bg-background text-foreground;
   }
   .section-title {
     @apply text-2xl lg:text-[40px] font-bold leading-normal mb-6;

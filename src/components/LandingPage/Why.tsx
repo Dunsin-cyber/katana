@@ -6,7 +6,7 @@ import ICON from "@/components/GIF/pizza.json";
 
 const Why = () => {
   return (
-    <section className="">
+    <section className="section">
       <div className="container mx-auto">
         <div
           className="flex flex-col items-center gap-x-8
