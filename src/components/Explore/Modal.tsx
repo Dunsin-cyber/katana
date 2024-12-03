@@ -105,7 +105,7 @@ const Modal = () => {
                 <input
                   type="number"
                   min="1"
-                  className="w-full p-2 rounded-md text-white"
+                  className="w-full p-2 rounded-md text-black"
                   value={sliceCount}
                   onChange={(e) => setSliceCount(parseInt(e.target.value) || 1)}
                 />
