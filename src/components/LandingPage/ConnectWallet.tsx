@@ -16,7 +16,7 @@ import Navbar from "../Navbar/Nav2";
 import Footer from "../Footer";
 // import { useAccount } from "wagmi";
 import { BackgroundBeams } from "@/components/ui/background-beams";
-// import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { BackgroundLines } from "@/components/ui/background-lines";
 // import WalletButton from "../WalletButton";
 import OptionModal from "./Modal";
@@ -24,6 +24,7 @@ import { useRouter } from "next/navigation";
 // import { useAppDispatch, useAppSelector } from "../../redux/hook";
 // import { CampaignT } from "../../redux/types";
 // import { useGetAllCampaigns } from "../functions";
+import { useAccount } from "wagmi";
 
 function ConnectWallet() {
   const router = useRouter();
@@ -32,6 +33,13 @@ function ConnectWallet() {
   // const campaigns = useAppSelector((state) => state.campaign);
   // const { getSmartContract, onToggle, isOpen } = useContext(AppContext);
   // const { getAllCampaigns } = useGetAllCampaigns();
+  const { address } = useAccount();
+
+  React.useEffect(() => {
+    if (address != null) {
+      router.push("/explore");
+    }
+  }, [address]);
 
   return (
     <BackgroundLines className="flex  bg-custom-gradient  w-full flex-col px-4">
@@ -48,10 +56,10 @@ function ConnectWallet() {
               Connect your wallet to buy shares of music, arts and other assets
             </Text>
             <Flex mt={8}>
-              <button className="btn" onClick={() => router.push("/explore")}>
+              {/* <button className="btn" onClick={() => router.push("/explore")}>
                 Connect Wallet
-              </button>
-              {/* <ConnectButton /> */}
+              </button> */}
+              <ConnectButton />
             </Flex>
           </Center>
         </Container>

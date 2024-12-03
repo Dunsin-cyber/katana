@@ -1,31 +1,24 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { IoIosArrowDroprightCircle } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import Navbar from "../Navbar/Nav2";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import { FlipWords } from "@/components/ui/flip-words";
-// import Lottie from "lottie-react";
-// import { useLottie } from "lottie-react";
+import Lottie from "lottie-react";
 import ICON from "@/components/GIF/home-icon.json";
 
 function Hero() {
   const router = useRouter();
   const words_ = ["High-Value Digital Assets", "music", "art"];
 
-  const options = {
-    animationData: ICON,
-    loop: true,
-  };
-
-  // const { View } = useLottie(options);
   return (
     <section>
-      {/* <BackgroundBeams /> */}
+      <BackgroundBeams />
       <div className="container mx-auto">
         <Navbar />
         <div className="flex flex-col items-center lg:flex-row mt-[30px]">
-          <div className="flex-1">
+          <div className="flex-1 z-40">
             {/* badge text */}
 
             {/* title */}
@@ -67,7 +60,6 @@ function Hero() {
             data-aos="fade-up"
             data-aos-delay="600"
           >
-            {/* {View} */}
             {/* <Lottie animationData={ICON} loop={true} /> */}
           </div>
         </div>

@@ -1,5 +1,7 @@
 "use client";
 import React, { useContext, useState } from "react";
+import { useAccount } from "wagmi";
+import { useRouter } from "next/navigation";
 
 interface DrawerParam {
   title: string;
@@ -21,11 +23,20 @@ const UserContext = React.createContext<{
 export const useUserContext = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeId, setActiveId] = useState(0);
+  const { address } = useAccount();
+  const router = useRouter();
 
   const assignId = (id: number) => {
     setActiveId(id);
     setIsModalOpen(true);
   };
+
+  React.useEffect(() => {
+    if (address == null) {
+      router.push("/");
+    }
+  }, [address]);
+
   return {
     isModalOpen,
     setIsModalOpen,

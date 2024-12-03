@@ -6,6 +6,7 @@ import { HoverEffect } from "@/components/ui/card-hover-effect";
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 import { Input } from "@chakra-ui/react";
 import Modal from "./Modal";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const Campaign = () => {
   React.useEffect(() => {}, []);
@@ -15,6 +16,7 @@ const Campaign = () => {
       <div className="flex pt-3 justify-between items-center  mx-auto ">
         <h2 className="font-extrabold">Musics and Arts</h2>
         <Input maxW={"40%"} placeholder="search for campaign" />
+        <ConnectButton />
       </div>
       <HoverEffect items={projects} />
       <Modal />
