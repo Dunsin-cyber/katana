@@ -9,6 +9,7 @@ import Link from "next/link";
 import { Tag } from "@/components/ui/tag";
 // import { ProgressBar, ProgressRoot } from "@/components/ui/progress";
 import { useClient } from "@/context";
+import { formatEther } from "viem";
 
 export const HoverEffect = ({
   items,
@@ -27,11 +28,11 @@ export const HoverEffect = ({
         className
       )}
     >
-      {items.map((item, idx) => (
+      {items?.map((item, idx) => (
         <div
-          key={item?.id}
+          key={Number(item?.contentId)}
           onClick={() => {
-            assignId(item.id);
+            assignId(Number(item?.contentId), item?.src);
           }}
         >
           <Link
@@ -72,6 +73,18 @@ export const HoverEffect = ({
                   </p>
                   <div className="flex-1 gap-x-5">
                     <Tag>USDe</Tag> <Tag>ENA</Tag>
+                  </div>
+                </div>
+
+                <div className=" flex-1 gap-y-3">
+                  <p className="text-zinc-400 tracking-wide leading-relaxed text-sm">
+                    Token Supply / Adress
+                  </p>
+                  <div className="flex-1 gap-x-5">
+                    <Tag>
+                      {Number(formatEther(item?.totalSupply)).toLocaleString()}
+                    </Tag>{" "}
+                    <Tag>{item?.tokenAddress.slice(0, 20)}...</Tag>
                   </div>
                 </div>
               </div>

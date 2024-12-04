@@ -1,17 +1,36 @@
-"use client";
+// "use client";
 import React from "react";
+import "@rainbow-me/rainbowkit/styles.css";
 import { WagmiProvider } from "wagmi";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
+import {
+  RainbowKitProvider,
+  type Locale,
+  darkTheme,
+} from "@rainbow-me/rainbowkit";
 import { config } from "@/utils/wagmi";
-import { UserContextProvider } from "@/context";
-
-// const queryClient = new QueryClient();
+import { useRouter } from "next/router";
+const queryClient = new QueryClient();
 
 function WalletProvider({ children }) {
+  // const { locale } = useRouter() as unknown as { locale: Locale };
+  const { locale } = useRouter() as { locale: Locale };
   return (
     <div>
-      <UserContextProvider>{children}</UserContextProvider>
+      <WagmiProvider config={config}>
+        <QueryClientProvider client={queryClient}>
+          <RainbowKitProvider
+            theme={darkTheme()}
+            locale={locale}
+            appInfo={{
+              appName: "Katana",
+            }}
+            modalSize="compact"
+          >
+            {children}
+          </RainbowKitProvider>
+        </QueryClientProvider>
+      </WagmiProvider>
     </div>
   );
 }

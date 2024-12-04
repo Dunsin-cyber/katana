@@ -7,7 +7,7 @@ import { HiChartBar, HiUser, HiGlobe } from "react-icons/hi";
 
 const Stats = () => {
   return (
-    <section className="pt-24" data-aos="fade-up" data-aos-delay="1200">
+    <section className="section pt-24" data-aos="fade-up" data-aos-delay="1200">
       <div className="container mx-auto">
         <div
           className="flex flex-col gap-y-6 lg:flex-row

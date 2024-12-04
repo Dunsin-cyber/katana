@@ -1,44 +1,23 @@
-
-
-export const navData = [
-  {
-    name: 'Products',
-    href: '#',
-  },
-  {
-    name: 'Features',
-    href: '#',
-  },
-  {
-    name: 'About',
-    href: '#',
-  },
-  {
-    name: 'Contact',
-    href: '#',
-  },
-];
-
 export const currency = [
   {
-    image: '/img/bitcon.png',
-    name: 'Bitcoin',
-    abbr: 'BTC',
+    image: "/img/art.jpg",
+    name: "Art",
+    abbr: "Art",
     description:
-      'Digital currency in which a record of transactions is maintained.',
+      "Discover and invest in your favorite art pieces through tokenized ownership.",
   },
   {
-    image:'/img/Solana_img.png',
-    name: 'Solana',
-    abbr: 'SOL',
+    image: "/img/music.jpg",
+    name: "Music",
+    abbr: "Music",
     description:
-      'Blockchain technology to create and run decentralized digital applications.',
+      "Shop for your favorite music tracks and own tokens tied to albums or artists.",
   },
   {
-    image: '/img/Zeta_img.png',
-    name: 'Zeta',
-    abbr: 'ZET',
+    image: "/img/nft.jpg",
+    name: "NFT",
+    abbr: "NFT",
     description:
-      'Cryptocurrency that enables instant payments to anyone in the world.',
+      "Explore unique digital assets and collectibles available for tokenized ownership.",
   },
 ];

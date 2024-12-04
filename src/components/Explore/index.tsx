@@ -1,81 +1,111 @@
 "use client";
-// / Dummy dashboard component with content
-import React from "react";
+import React, { useEffect } from "react";
 // import { SidebarDemo } from "../Sidebar";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 import { Input } from "@chakra-ui/react";
 import Modal from "./Modal";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { useClient } from "@/context";
+import CreateToken from "./CreateToken";
+import { useGetContents } from "@/hooks/index";
 
-const Campaign = () => {
+const Explore = () => {
   React.useEffect(() => {}, []);
+  const [contents, setContents] = React.useState(null);
+  const { setIsCreateModalOpen } = useClient();
+
+  const { data } = useGetContents();
+  console.log("Content", data);
+
+  const pics = ["album-1.jpg", "album-2.jpg", "album-3.jpg", "album-4.jpg"];
+
+  const getRandomImage = () => {
+    return pics[Math.floor(Math.random() * pics.length)];
+  };
+
+  const filteredContent = data?.map((d: any) => ({
+    ...d, // Spread existing properties of each campaign
+    src: getRandomImage(),
+  }));
 
   return (
-    <div className="bg-bgGradient mx-auto px-8">
+    <div className="bg-bgGradient mx-auto px-8 relative">
       <div className="flex pt-3 justify-between items-center  mx-auto ">
         <h2 className="font-extrabold">Musics and Arts</h2>
-        <Input maxW={"40%"} placeholder="search for campaign" />
+        <Input maxW={"40%"} placeholder="search" />
+        <button
+          className="btn px-9"
+          onClick={() => {
+            setIsCreateModalOpen(true);
+          }}
+        >
+          create token
+        </button>
+        <ConnectButton />
       </div>
-      <HoverEffect items={projects} />
+      <HoverEffect items={filteredContent} />
+
       <Modal />
+      <CreateToken />
     </div>
   );
 };
 
-export default Campaign;
+export default Explore;
 
 export const projects = [
   {
     id: 1,
-    title: "Stripe",
+    title: "Kanye West - Graduation",
     description:
-      "A technology company that builds economic infrastructure for the internet.",
-    link: "https://stripe.com",
+      "An iconic album by Kanye West, featuring hit tracks like 'Stronger' and 'Good Life.' Share ownership of tokens tied to this album and enable joint purchases.",
+    link: "https://kanyewest.com",
     src: "album-1.jpg",
     progress: 20,
   },
   {
     id: 2,
-    title: "Netflix",
+    title: "Beyoncé - Lemonade",
     description:
-      "A streaming service that offers a wide variety of award-winning TV shows, movies, anime, documentaries, and more on thousands of internet-connected devices.",
-    link: "https://netflix.com",
+      "A groundbreaking visual album by Beyoncé that blends music with storytelling. Own tokens tied to this masterpiece and split the cost with others.",
+    link: "https://beyonce.com",
     src: "album-2.jpg",
     progress: 30,
   },
   {
     id: 3,
-    title: "Google",
+    title: "Drake - Scorpion",
     description:
-      "A multinational technology company that specializes in Internet-related services and products.",
-    link: "https://google.com",
+      "Drake's fifth studio album featuring chart-topping hits like 'God's Plan.' Tokenize your ownership and collaborate on joint purchases.",
+    link: "https://drake.com",
     src: "album-3.jpg",
     progress: 0,
   },
   {
     id: 4,
-    title: "Meta",
+    title: "Taylor Swift - 1989",
     description:
-      "A technology company that focuses on building products that advance Facebook's mission of bringing the world closer together.",
-    link: "https://meta.com",
+      "A Grammy-winning album by Taylor Swift that marked her transition to pop. Own a share in this album's tokens and join buy opportunities.",
+    link: "https://taylorswift.com",
     src: "album-4.jpg",
     progress: 78,
   },
   {
     id: 5,
-    title: "Amazon",
+    title: "Adele - 25",
     description:
-      "A multinational technology company focusing on e-commerce, cloud computing, digital streaming, and artificial intelligence.",
-    link: "https://amazon.com",
+      "A soulful album by Adele, featuring the worldwide hit 'Hello.' Token ownership lets you split the cost and invest in this musical gem.",
+    link: "https://adele.com",
     src: "album-1.jpg",
     progress: 49,
   },
   {
     id: 6,
-    title: "Microsoft",
+    title: "The Weeknd - After Hours",
     description:
-      "A multinational technology company that develops, manufactures, licenses, supports, and sells computer software, consumer electronics, personal computers, and related services.",
-    link: "https://microsoft.com",
+      "The Weeknd's album featuring chart-toppers like 'Blinding Lights.' Share tokens in this album and enable fractional ownership.",
+    link: "https://theweeknd.com",
     src: "album-2.jpg",
     progress: 90,
   },
