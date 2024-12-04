@@ -124,7 +124,7 @@ const Modal = () => {
         address: contractAddress, // change to receipient address
         functionName: "transferTokens",
         abi: contractAbi,
-        args: [],
+        args: [activeId, address, parseEther(pricePerSlice.toString())],
         chain: undefined,
         account: address,
       });
@@ -221,8 +221,12 @@ const Modal = () => {
                 </div>
               )}
               <div className="flex justify-center py-5">
-                <button className="btn" onClick={handleSubmit}>
-                  Buy a Piece
+                <button
+                  disabled={loading}
+                  className="btn"
+                  onClick={handleSubmit}
+                >
+                  {loading ? "buying..." : "Buy a Piece"}
                 </button>
               </div>
             </div>
