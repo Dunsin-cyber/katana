@@ -167,7 +167,7 @@ const Modal = () => {
                   className="rounded-md shadow-md w-full"
                 />
                 <a
-                  href={`https://bleTestnet.etherscan.io/address/${content?.tokenAddress}`}
+                  href={`https://testnet.explorer.ethena.fi/address/${content?.tokenAddress}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-[#FFD700] underline hover:text-white"

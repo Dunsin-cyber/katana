@@ -70,7 +70,8 @@ export default function TokenModal() {
         "Created Successfully, your creation will appear after the transcation is confirmed"
       );
       setLoading(false);
-      setIsCreateModalOpen(false); // Close modal on submit
+      setIsCreateModalOpen(false);
+      console.log(data);
     } catch (err) {
       console.log(err);
       toast("Something Went Wrong");
