@@ -9,13 +9,13 @@ import {
   useReadContract,
 } from "wagmi";
 import { config } from "../../utils/wagmi";
-import { sepolia } from "viem/chains";
 import { injected } from "wagmi/connectors";
 import contractAbi from "@/hooks/abi.json";
 import { contractAddress } from "@/hooks";
 import { toast } from "react-hot-toast";
 import { formatEther, parseEther } from "viem";
 import { useGetContents } from "@/hooks/index";
+import { bleTestnet } from "@/utils/wagmi";
 
 const Modal = () => {
   const { isModalOpen, setIsModalOpen, activeId, activePic } = useClient();
@@ -114,13 +114,13 @@ const Modal = () => {
     try {
       if (!address) {
         await connectAsync({
-          chainId: sepolia.id,
+          chainId: bleTestnet.id,
           connector: injected(),
         });
       }
 
       const data = await writeContractAsync({
-        chainId: sepolia.id,
+        chainId: bleTestnet.id,
         address: contractAddress, // change to receipient address
         functionName: "transferTokens",
         abi: contractAbi,
@@ -167,7 +167,7 @@ const Modal = () => {
                   className="rounded-md shadow-md w-full"
                 />
                 <a
-                  href={`https://sepolia.etherscan.io/address/${content?.tokenAddress}`}
+                  href={`https://bleTestnet.etherscan.io/address/${content?.tokenAddress}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-[#FFD700] underline hover:text-white"

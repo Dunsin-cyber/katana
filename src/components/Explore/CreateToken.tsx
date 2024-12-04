@@ -8,12 +8,12 @@ import {
   useReadContract,
 } from "wagmi";
 import { config } from "../../utils/wagmi";
-import { sepolia } from "viem/chains";
 import { injected } from "wagmi/connectors";
 import contractAbi from "@/hooks/abi.json";
 import { contractAddress } from "@/hooks";
 import { toast } from "react-hot-toast";
 import { parseEther } from "viem";
+import { bleTestnet } from "@/utils/wagmi";
 
 export default function TokenModal() {
   const { isCreateModalOpen, setIsCreateModalOpen } = useClient();
@@ -44,13 +44,13 @@ export default function TokenModal() {
     try {
       if (!address) {
         await connectAsync({
-          chainId: sepolia.id,
+          chainId: bleTestnet.id,
           connector: injected(),
         });
       }
 
       const data = await writeContractAsync({
-        chainId: sepolia.id,
+        chainId: bleTestnet.id,
         address: contractAddress, // change to receipient address
         functionName: "uploadContent",
         abi: contractAbi,
@@ -59,8 +59,8 @@ export default function TokenModal() {
           formData.tokenName,
           formData.tokenSymbol,
           parseEther(`${formData.totalSupply}`),
-          formData.title,
           formData.description,
+          formData.title,
         ],
         chain: undefined,
         account: address,

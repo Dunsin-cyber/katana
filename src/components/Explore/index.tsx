@@ -40,7 +40,7 @@ const Explore = () => {
             setIsCreateModalOpen(true);
           }}
         >
-          create token
+          create content
         </button>
         <ConnectButton />
       </div>
