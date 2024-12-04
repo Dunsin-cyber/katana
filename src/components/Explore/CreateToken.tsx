@@ -71,7 +71,9 @@ export default function TokenModal() {
       );
       setLoading(false);
       setIsCreateModalOpen(false);
-      console.log(data);
+      //  const dd=  `https://testnet.explorer.ethena.fi/address/${data}`}
+
+      // console.log(data);
     } catch (err) {
       console.log(err);
       toast("Something Went Wrong");

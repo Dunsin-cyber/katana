@@ -10,6 +10,7 @@ import { useClient } from "@/context";
 import CreateToken from "./CreateToken";
 import { useGetContents, contractAddress } from "@/hooks/index";
 import contractAbi from "@/hooks/abi.json";
+import { SidebarDemo } from "@/components/Sidebar";
 
 const Explore = () => {
   React.useEffect(() => {}, []);
@@ -32,25 +33,27 @@ const Explore = () => {
   }));
 
   return (
-    <div className="bg-bgGradient mx-auto px-8 relative">
-      <div className="flex pt-3 justify-between items-center  mx-auto ">
-        <h2 className="font-extrabold">Musics and Arts</h2>
-        <Input maxW={"40%"} placeholder="search" />
-        <button
-          className="btn px-9"
-          onClick={() => {
-            setIsCreateModalOpen(true);
-          }}
-        >
-          create content
-        </button>
-        <ConnectButton />
-      </div>
-      {data && !isLoading && <HoverEffect items={filteredContent} />}
+    <SidebarDemo>
+      <div className="bg-bgGradient mx-auto px-8 relative">
+        <div className="flex pt-3 justify-between items-center  mx-auto ">
+          <h2 className="font-extrabold">Musics and Arts</h2>
+          <Input maxW={"40%"} placeholder="search" />
+          <button
+            className="btn px-9"
+            onClick={() => {
+              setIsCreateModalOpen(true);
+            }}
+          >
+            create content
+          </button>
+          <ConnectButton />
+        </div>
+        {data && !isLoading && <HoverEffect items={filteredContent} />}
 
-      <Modal />
-      <CreateToken />
-    </div>
+        <Modal />
+        <CreateToken />
+      </div>
+    </SidebarDemo>
   );
 };
 

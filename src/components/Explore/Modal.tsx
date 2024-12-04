@@ -16,6 +16,8 @@ import { toast } from "react-hot-toast";
 import { formatEther, parseEther } from "viem";
 import { useGetContents } from "@/hooks/index";
 import { bleTestnet } from "@/utils/wagmi";
+import erc20Abi from "@/hooks/erc-20.json";
+import { useRouter } from "next/router";
 
 const Modal = () => {
   const { isModalOpen, setIsModalOpen, activeId, activePic } = useClient();
@@ -26,6 +28,9 @@ const Modal = () => {
   const [imageSlices, setImageSlices] = useState([]);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [loading, setLoading] = React.useState(false);
+
+  const router = useRouter();
+  const pathname = router.pathname;
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => {
@@ -84,9 +89,9 @@ const Modal = () => {
   const handleSlice = () => {
     const calculatedSlices = Array.from({ length: sliceCount }, (_, i) => ({
       id: i + 1,
-      price:
-        // Number(totalPrice / sliceCount).toFixed(2),
-        (Number(formatEther(content?.totalSupply)) / sliceCount).toFixed(2),
+      price: (Number(formatEther(content?.totalSupply)) / sliceCount).toFixed(
+        2
+      ),
     }));
     setSlices(calculatedSlices);
     setPricePerSlice(
@@ -118,7 +123,6 @@ const Modal = () => {
           connector: injected(),
         });
       }
-
       const data = await writeContractAsync({
         chainId: bleTestnet.id,
         address: contractAddress, // change to receipient address
@@ -129,12 +133,44 @@ const Modal = () => {
         account: address,
       });
 
-      toast("Purchased Successfully");
+      toast.success("Purchased Successfully");
       setLoading(false);
       closeModal(); // Close modal on submit
     } catch (err) {
       console.log(err);
-      toast("Something Went Wrong");
+      toast.error("Something Went Wrong");
+      setLoading(false);
+    }
+  };
+
+  const handleApprove = async () => {
+    setLoading(true);
+    try {
+      if (!address) {
+        await connectAsync({
+          chainId: bleTestnet.id,
+          connector: injected(),
+        });
+      }
+
+      const approve = await writeContractAsync({
+        chainId: bleTestnet.id,
+        chain: undefined,
+        account: address,
+        address: content?.tokenAddress,
+        abi: erc20Abi,
+        functionName: "approve",
+        args: [
+          contractAddress,
+          parseEther(Number(formatEther(content?.totalSupply)).toString()),
+        ],
+      });
+      toast.success("Approved!");
+      closeModal();
+    } catch (err) {
+      console.log(err);
+      toast.error("Something Went Wrong");
+    } finally {
       setLoading(false);
     }
   };
@@ -157,79 +193,110 @@ const Modal = () => {
             </div>
 
             {/* Scrollable Content */}
-            <div className="p-4 overflow-y-auto max-h-[75vh]">
-              {/* Modal Content */}
-              <div className="mb-6">
-                <p className="mb-4">{content?.description}</p>
-                <img
-                  src={`/dummyPic/${activePic}`}
-                  alt={content?.title}
-                  className="rounded-md shadow-md w-full"
-                />
-                <a
-                  href={`https://testnet.explorer.ethena.fi/address/${content?.tokenAddress}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[#FFD700] underline hover:text-white"
-                >
-                  Visit {content?.title} contract
-                </a>
-              </div>
-
-              {/* Slicing Options */}
-              <div className="mb-6">
-                <label className="block mb-2 text-sm">Number of Slices:</label>
-                <input
-                  type="number"
-                  min="1"
-                  className="w-full p-2 rounded-md text-white"
-                  value={sliceCount}
-                  onChange={(e) => setSliceCount(parseInt(e.target.value) || 1)}
-                />
-                <button
-                  onClick={handleSlice}
-                  className="bg-[#FFD700] text-black py-2 px-4 mt-4 rounded-full hover:scale-105 transition"
-                >
-                  Slice It
-                </button>
-              </div>
-
-              {/* Sliced Pieces */}
-              {imageLoaded && slices.length > 0 && (
-                <div>
-                  <h3 className="text-lg font-bold mb-2">Sliced Pieces:</h3>
-                  <div className="grid grid-cols-2 gap-4">
-                    {slices.map((slice, index) => (
-                      <div
-                        key={slice.id}
-                        className="bg-[#F0E68C] text-black p-4 rounded-md text-center"
-                      >
-                        <img
-                          src={imageSlices[index]}
-                          alt={`Slice ${slice.id}`}
-                          className="mb-2"
-                        />
-                        <p>Slice {slice.id}</p>
-                        <p>Price: ${Number(slice.price).toLocaleString()}</p>
-                      </div>
-                    ))}
-                  </div>
-                  <p className="mt-4">
-                    Price per slice:{" "}
-                    <strong>${pricePerSlice.toLocaleString()}</strong>
-                  </p>
+            {pathname.includes("explore") ? (
+              <div className="p-4 overflow-y-auto max-h-[75vh]">
+                {/* Modal Content */}
+                <div className="mb-6">
+                  <p className="mb-4">{content?.description}</p>
+                  <img
+                    src={`/dummyPic/${activePic}`}
+                    alt={content?.title}
+                    className="rounded-md shadow-md w-full"
+                  />
+                  <a
+                    href={`https://testnet.explorer.ethena.fi/address/${content?.tokenAddress}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#FFD700] underline hover:text-white"
+                  >
+                    Visit {content?.title} contract
+                  </a>
                 </div>
-              )}
-              <div className="flex justify-center py-5">
-                <button
-                  disabled={loading}
-                  className="btn"
-                  onClick={handleSubmit}
-                >
-                  {loading ? "buying..." : "Buy a Piece"}
-                </button>
+
+                {/* Slicing Options */}
+                <div className="mb-6">
+                  <label className="block mb-2 text-sm">
+                    Number of Slices:
+                  </label>
+                  <input
+                    type="number"
+                    min="1"
+                    className="w-full p-2 rounded-md text-white"
+                    value={sliceCount}
+                    onChange={(e) =>
+                      setSliceCount(parseInt(e.target.value) || 1)
+                    }
+                  />
+                  <button
+                    onClick={handleSlice}
+                    className="bg-[#FFD700] text-black py-2 px-4 mt-4 rounded-full hover:scale-105 transition"
+                  >
+                    Slice It
+                  </button>
+                </div>
+
+                {/* Sliced Pieces */}
+                {imageLoaded && slices.length > 0 && (
+                  <div>
+                    <h3 className="text-lg font-bold mb-2">Sliced Pieces:</h3>
+                    <div className="grid grid-cols-2 gap-4">
+                      {slices.map((slice, index) => (
+                        <div
+                          key={slice.id}
+                          className="bg-[#F0E68C] text-black p-4 rounded-md text-center"
+                        >
+                          <img
+                            src={imageSlices[index]}
+                            alt={`Slice ${slice.id}`}
+                            className="mb-2"
+                          />
+                          <p>Slice {slice.id}</p>
+                          <p>Price: ${Number(slice.price).toLocaleString()}</p>
+                        </div>
+                      ))}
+                    </div>
+                    <p className="mt-4">
+                      Price per slice:{" "}
+                      <strong>${pricePerSlice.toLocaleString()}</strong>
+                    </p>
+                  </div>
+                )}
+                <div className="flex justify-center py-5">
+                  <button
+                    disabled={loading}
+                    className="btn"
+                    onClick={handleSubmit}
+                  >
+                    {loading ? "buying..." : "Buy a Piece"}
+                  </button>
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="p-4 overflow-y-auto max-h-[75vh]">
+                {/* Modal Content */}
+                <div className="mb-6">
+                  <p className="mb-4">{content?.description}</p>
+                  <img
+                    src={`/dummyPic/${activePic}`}
+                    alt={content?.title}
+                    className="rounded-md shadow-md w-full"
+                  />
+                  <a
+                    href={`https://testnet.explorer.ethena.fi/address/${content?.tokenAddress}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#FFD700] underline hover:text-white"
+                  >
+                    Visit {content?.title} contract
+                  </a>
+                </div>
+                <div className="flex justify-center">
+                  <button className="btn px-4" onClick={handleApprove}>
+                    {loading ? "loading..." : "Approve Katana to Spend Tokens"}
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       )}
