@@ -12,7 +12,8 @@
 
 # testing
 /coverage
-
+/contracts/.env
+contracts/.env
 # next.js
 /.next/
 /out/
