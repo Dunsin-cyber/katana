@@ -160,10 +160,7 @@ const Modal = () => {
         address: content?.tokenAddress,
         abi: erc20Abi,
         functionName: "approve",
-        args: [
-          contractAddress,
-          parseEther(Number(formatEther(content?.totalSupply)).toString()),
-        ],
+        args: [contractAddress, parseEther(formatEther(content?.totalSupply))],
       });
       toast.success("Approved!");
       closeModal();
