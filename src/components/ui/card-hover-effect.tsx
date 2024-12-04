@@ -32,7 +32,7 @@ export const HoverEffect = ({
         <div
           key={Number(item?.contentId)}
           onClick={() => {
-            assignId(Number(item.contentId));
+            assignId(Number(item?.contentId), item?.src);
           }}
         >
           <Link
@@ -78,7 +78,7 @@ export const HoverEffect = ({
 
                 <div className=" flex-1 gap-y-3">
                   <p className="text-zinc-400 tracking-wide leading-relaxed text-sm">
-                    Token Spply / Adress
+                    Token Supply / Adress
                   </p>
                   <div className="flex-1 gap-x-5">
                     <Tag>

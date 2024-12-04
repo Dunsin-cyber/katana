@@ -19,7 +19,14 @@ function WalletProvider({ children }) {
     <div>
       <WagmiProvider config={config}>
         <QueryClientProvider client={queryClient}>
-          <RainbowKitProvider theme={darkTheme()} locale={locale}>
+          <RainbowKitProvider
+            theme={darkTheme()}
+            locale={locale}
+            appInfo={{
+              appName: "Katana",
+            }}
+            modalSize="compact"
+          >
             {children}
           </RainbowKitProvider>
         </QueryClientProvider>

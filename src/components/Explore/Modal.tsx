@@ -14,10 +14,11 @@ import { injected } from "wagmi/connectors";
 import contractAbi from "@/hooks/abi.json";
 import { contractAddress } from "@/hooks";
 import { toast } from "react-hot-toast";
-import { parseEther } from "viem";
+import { formatEther, parseEther } from "viem";
+import { useGetContents } from "@/hooks/index";
 
 const Modal = () => {
-  const { isModalOpen, setIsModalOpen, activeId } = useClient();
+  const { isModalOpen, setIsModalOpen, activeId, activePic } = useClient();
   const [sliceCount, setSliceCount] = useState(1);
   const [slices, setSlices] = useState([]);
   const [pricePerSlice, setPricePerSlice] = useState(0);
@@ -27,20 +28,29 @@ const Modal = () => {
   const [loading, setLoading] = React.useState(false);
 
   const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSliceCount(1);
+    setSlices([]);
+    setPricePerSlice(0);
+    setImageSlices([]);
+  };
   //this fetched "campaigns" and by the index, we can get the exact campaign,
   //so it will just be a getallcampaigns, then filter all camaigns to match this id
-  const data = projects.filter((p) => p.id === activeId);
+  const { data } = useGetContents();
+  const content = data?.find((p) => Number(p.contentId) === activeId);
+
+  console.log("Content", content);
 
   useEffect(() => {
     if (isModalOpen) {
-      loadImageSlices(data[0].src, sliceCount);
+      loadImageSlices(activePic, sliceCount);
     }
   }, [isModalOpen, sliceCount]);
 
-  const loadImageSlices = (imageSrc, count) => {
+  const loadImageSlices = (activePic, count) => {
     const img = new Image();
-    img.src = `/dummyPic/${imageSrc}`;
+    img.src = `/dummyPic/${activePic}`;
     img.onload = () => {
       const canvas = document.createElement("canvas");
       const ctx = canvas.getContext("2d");
@@ -74,9 +84,16 @@ const Modal = () => {
   const handleSlice = () => {
     const calculatedSlices = Array.from({ length: sliceCount }, (_, i) => ({
       id: i + 1,
-      price: Number((totalPrice / sliceCount).toFixed(2)),
+      price:
+        // Number(totalPrice / sliceCount).toFixed(2),
+        (Number(formatEther(content?.totalSupply)) / sliceCount).toFixed(2),
     }));
     setSlices(calculatedSlices);
+    setPricePerSlice(
+      Number(
+        (Number(formatEther(content?.totalSupply)) / sliceCount).toFixed(2)
+      )
+    );
   };
 
   //interacting with smart contract
@@ -130,7 +147,7 @@ const Modal = () => {
           <div className="bg-gradient-to-br from-[#2C120D] to-[#6E3B3B] text-white rounded-lg shadow-lg w-[90%] max-w-lg max-h-[90vh] overflow-hidden">
             {/* Modal Header */}
             <div className="flex justify-between items-center p-4 border-b border-gray-600">
-              <h2 className="text-2xl font-bold">{data[0].title}</h2>
+              <h2 className="text-2xl font-bold">{content?.title}</h2>
               <button
                 className="text-gray-300 hover:text-white transition"
                 onClick={closeModal}
@@ -143,19 +160,19 @@ const Modal = () => {
             <div className="p-4 overflow-y-auto max-h-[75vh]">
               {/* Modal Content */}
               <div className="mb-6">
-                <p className="mb-4">{data[0].description}</p>
+                <p className="mb-4">{content?.description}</p>
                 <img
-                  src={`/dummyPic/${data[0]?.src}`}
-                  alt={data[0].title}
+                  src={`/dummyPic/${activePic}`}
+                  alt={content?.title}
                   className="rounded-md shadow-md w-full"
                 />
                 <a
-                  href={data[0].link}
+                  href={`https://sepolia.etherscan.io/address/${content?.tokenAddress}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-[#FFD700] underline hover:text-white"
                 >
-                  Visit {data[0].title}
+                  Visit {content?.title} contract
                 </a>
               </div>
 
@@ -165,7 +182,7 @@ const Modal = () => {
                 <input
                   type="number"
                   min="1"
-                  className="w-full p-2 rounded-md text-black"
+                  className="w-full p-2 rounded-md text-white"
                   value={sliceCount}
                   onChange={(e) => setSliceCount(parseInt(e.target.value) || 1)}
                 />
@@ -193,15 +210,21 @@ const Modal = () => {
                           className="mb-2"
                         />
                         <p>Slice {slice.id}</p>
-                        <p>Price: ${slice.price}</p>
+                        <p>Price: ${Number(slice.price).toLocaleString()}</p>
                       </div>
                     ))}
                   </div>
                   <p className="mt-4">
-                    Price per slice: <strong>${pricePerSlice}</strong>
+                    Price per slice:{" "}
+                    <strong>${pricePerSlice.toLocaleString()}</strong>
                   </p>
                 </div>
               )}
+              <div className="flex justify-center py-5">
+                <button className="btn" onClick={handleSubmit}>
+                  Buy a Piece
+                </button>
+              </div>
             </div>
           </div>
         </div>
