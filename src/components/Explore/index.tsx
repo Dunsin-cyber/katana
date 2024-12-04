@@ -8,15 +8,17 @@ import Modal from "./Modal";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useClient } from "@/context";
 import CreateToken from "./CreateToken";
-import { useGetContents } from "@/hooks/index";
+import { useGetContents, contractAddress } from "@/hooks/index";
+import contractAbi from "@/hooks/abi.json";
 
 const Explore = () => {
   React.useEffect(() => {}, []);
   const [contents, setContents] = React.useState(null);
   const { setIsCreateModalOpen } = useClient();
 
-  const { data } = useGetContents();
+  const { data, isLoading, error } = useGetContents();
   console.log("Content", data);
+  console.log("error", error);
 
   const pics = ["album-1.jpg", "album-2.jpg", "album-3.jpg", "album-4.jpg"];
 
@@ -44,7 +46,7 @@ const Explore = () => {
         </button>
         <ConnectButton />
       </div>
-      <HoverEffect items={filteredContent} />
+      {data && !isLoading && <HoverEffect items={filteredContent} />}
 
       <Modal />
       <CreateToken />

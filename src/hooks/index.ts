@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useWriteContract, useReadContract } from "wagmi";
-import contractAbi from "./abi.json";
+import contractAbi from "@/hooks/abi.json";
 import type { Address } from "viem";
 import { config } from "@/utils/wagmi";
 
@@ -14,20 +14,15 @@ type ReturnType = {
 };
 
 export const useGetContents = () => {
-  const [loading, setLoading] = useState(true);
-
-  //   const [contentData, setContentData] = useState<any>(null);
-
   // Fetch data for each item
   const { data, error } = useReadContract({
     abi: contractAbi,
     address: contractAddress,
     functionName: "getAllTheContents",
-    args: [],
   });
 
   return {
-    isLoading: loading,
+    isLoading: !data && !error,
     data: data as any,
     error,
   };

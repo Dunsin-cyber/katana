@@ -3,6 +3,9 @@ import WalletProvider from "@/utils/index"; // Wrap with context
 import { Provider } from "@/components/ui/provider";
 import { UserContextProvider } from "@/context";
 import { Toaster } from "react-hot-toast";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import { WagmiProvider } from "wagmi";
+import { config } from "@/utils/wagmi";
 
 import localFont from "next/font/local";
 
@@ -17,20 +20,25 @@ const geistMono = localFont({
   variable: "--font-geist-mono",
   weight: "100 900",
 });
+const queryClient = new QueryClient();
 
 const App = ({ Component, pageProps }) => {
   return (
     <Provider>
-      <WalletProvider>
-        <Toaster />
-        <UserContextProvider>
-          <div
-            className={`${geistSans.variable} ${geistMono.variable} antialiased dark`}
-          >
-            <Component {...pageProps} />
-          </div>
-        </UserContextProvider>
-      </WalletProvider>
+      <WagmiProvider config={config}>
+        <QueryClientProvider client={queryClient}>
+          <WalletProvider>
+            <Toaster />
+            <UserContextProvider>
+              <div
+                className={`${geistSans.variable} ${geistMono.variable} antialiased dark`}
+              >
+                <Component {...pageProps} />
+              </div>
+            </UserContextProvider>
+          </WalletProvider>
+        </QueryClientProvider>
+      </WagmiProvider>
     </Provider>
   );
 };

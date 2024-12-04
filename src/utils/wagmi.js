@@ -1,5 +1,5 @@
 import { getDefaultConfig } from "@rainbow-me/rainbowkit";
-// import { sepolia } from "wagmi/chains";
+import { sepolia } from "wagmi/chains";
 
 // Define the custom chain directly
 export const bleTestnet = {
@@ -11,8 +11,11 @@ export const bleTestnet = {
     symbol: "ETH",
     decimals: 18,
   },
+
   rpcUrls: {
-    default: "https://testnet.rpc.ethena.fi", // RPC URL
+    default: {
+      http: ["https://testnet.rpc.ethena.fi"],
+    },
   },
   blockExplorers: {
     default: {

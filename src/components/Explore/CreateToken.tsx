@@ -50,7 +50,7 @@ export default function TokenModal() {
       }
 
       const data = await writeContractAsync({
-        chainId: bleTestnet.id,
+        chainId: 52085143,
         address: contractAddress, // change to receipient address
         functionName: "uploadContent",
         abi: contractAbi,
