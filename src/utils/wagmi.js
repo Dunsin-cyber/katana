@@ -1,9 +1,8 @@
 import { getDefaultConfig } from "@rainbow-me/rainbowkit";
-import { defineChain } from "wagmi/chains";
-import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
+// import { sepolia } from "wagmi/chains";
 
-// Define the custom chain
-const bleTestent = defineChain({
+// Define the custom chain directly
+export const bleTestnet = {
   id: 52085143, // Chain ID
   name: "Ble Testnet",
   network: "ble-testent",
@@ -13,12 +12,7 @@ const bleTestent = defineChain({
     decimals: 18,
   },
   rpcUrls: {
-    default: {
-      http: ["https://testnet.rpc.ethena.fi"],
-    },
-    public: {
-      http: ["https://testnet.rpc.ethena.fi"],
-    },
+    default: "https://testnet.rpc.ethena.fi", // RPC URL
   },
   blockExplorers: {
     default: {
@@ -26,16 +20,15 @@ const bleTestent = defineChain({
       url: "https://testnet.explorer.ethena.fi",
     },
   },
-  testnet: true,
-});
+  testnet: true, // Indicates it's a testnet
+};
 
-// Configure RainbowKit
 export const config = getDefaultConfig({
   appName: "Katana",
   projectId: "YOUR_PROJECT_ID",
   chains: [
-    bleTestent,
-    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === "true" ? [bleTestent] : []),
+    bleTestnet,
+    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === "true" ? [bleTestnet] : []),
   ],
   ssr: true,
 });
