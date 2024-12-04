@@ -13,15 +13,21 @@ const UserContext = React.createContext<{
   setIsModalOpen: any;
   assignId: any;
   activeId: any;
+  isCreateModalOpen: any;
+  setIsCreateModalOpen: any;
 }>({
   isModalOpen: undefined,
   setIsModalOpen: undefined,
   assignId: undefined,
   activeId: undefined,
+  isCreateModalOpen: undefined,
+  setIsCreateModalOpen: undefined,
 });
 
 export const useUserContext = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+
   const [activeId, setActiveId] = useState(0);
   const { address } = useAccount();
   const router = useRouter();
@@ -42,6 +48,8 @@ export const useUserContext = () => {
     setIsModalOpen,
     assignId,
     activeId,
+    isCreateModalOpen,
+    setIsCreateModalOpen,
   };
 };
 

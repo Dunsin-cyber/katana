@@ -13,7 +13,7 @@ function Hero() {
   const words_ = ["High-Value Digital Assets", "music", "art"];
 
   return (
-    <section className="h-[100vh">
+    <section className="">
       <BackgroundBeams />
       <div className="container mx-auto">
         <Navbar />

@@ -2,6 +2,7 @@ import "@/styles/globals.css"; // Import global CSS
 import WalletProvider from "@/utils/index"; // Wrap with context
 import { Provider } from "@/components/ui/provider";
 import { UserContextProvider } from "@/context";
+import { Toaster } from "react-hot-toast";
 
 import localFont from "next/font/local";
 
@@ -21,6 +22,7 @@ const App = ({ Component, pageProps }) => {
   return (
     <Provider>
       <WalletProvider>
+        <Toaster />
         <UserContextProvider>
           <div
             className={`${geistSans.variable} ${geistMono.variable} antialiased dark`}

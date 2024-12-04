@@ -1,6 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useClient } from "@/context";
 import { projects } from "./index";
+import {
+  useAccount,
+  useWriteContract,
+  BaseError,
+  useConnect,
+  useReadContract,
+} from "wagmi";
+import { config } from "../../utils/wagmi";
+import { sepolia } from "viem/chains";
+import { injected } from "wagmi/connectors";
+import contractAbi from "@/hooks/abi.json";
+import { contractAddress } from "@/hooks";
+import { toast } from "react-hot-toast";
+import { parseEther } from "viem";
 
 const Modal = () => {
   const { isModalOpen, setIsModalOpen, activeId } = useClient();
@@ -10,9 +24,12 @@ const Modal = () => {
   const [totalPrice, setTotalPrice] = useState(100); // Example price
   const [imageSlices, setImageSlices] = useState([]);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [loading, setLoading] = React.useState(false);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+  //this fetched "campaigns" and by the index, we can get the exact campaign,
+  //so it will just be a getallcampaigns, then filter all camaigns to match this id
   const data = projects.filter((p) => p.id === activeId);
 
   useEffect(() => {
@@ -60,6 +77,49 @@ const Modal = () => {
       price: Number((totalPrice / sliceCount).toFixed(2)),
     }));
     setSlices(calculatedSlices);
+  };
+
+  //interacting with smart contract
+
+  const { address } = useAccount();
+  const {
+    data: data_,
+    error,
+    writeContractAsync,
+  } = useWriteContract({
+    config,
+  });
+  const { connectAsync } = useConnect();
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      if (!address) {
+        await connectAsync({
+          chainId: sepolia.id,
+          connector: injected(),
+        });
+      }
+
+      const data = await writeContractAsync({
+        chainId: sepolia.id,
+        address: contractAddress, // change to receipient address
+        functionName: "transferTokens",
+        abi: contractAbi,
+        args: [],
+        chain: undefined,
+        account: address,
+      });
+
+      toast("Purchased Successfully");
+      setLoading(false);
+      closeModal(); // Close modal on submit
+    } catch (err) {
+      console.log(err);
+      toast("Something Went Wrong");
+      setLoading(false);
+    }
   };
 
   return (

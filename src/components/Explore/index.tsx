@@ -1,30 +1,58 @@
 "use client";
-// / Dummy dashboard component with content
-import React from "react";
+import React, { useEffect } from "react";
 // import { SidebarDemo } from "../Sidebar";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 import { Input } from "@chakra-ui/react";
 import Modal from "./Modal";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { useClient } from "@/context";
+import CreateToken from "./CreateToken";
+import { useGetContents } from "@/hooks/index";
 
-const Campaign = () => {
+const Explore = () => {
   React.useEffect(() => {}, []);
+  const [contents, setContents] = React.useState(null);
+  const { setIsCreateModalOpen } = useClient();
+
+  const { data } = useGetContents();
+  console.log("Content", data);
+
+  const pics = ["album-1.jpg", "album-2.jpg", "album-3.jpg", "album-4.jpg"];
+
+  const getRandomImage = () => {
+    return pics[Math.floor(Math.random() * pics.length)];
+  };
+
+  const filteredContent = data?.map((d: any) => ({
+    ...d, // Spread existing properties of each campaign
+    src: getRandomImage(),
+  }));
 
   return (
-    <div className="bg-bgGradient mx-auto px-8">
+    <div className="bg-bgGradient mx-auto px-8 relative">
       <div className="flex pt-3 justify-between items-center  mx-auto ">
         <h2 className="font-extrabold">Musics and Arts</h2>
         <Input maxW={"40%"} placeholder="search" />
+        <button
+          className="btn px-9"
+          onClick={() => {
+            setIsCreateModalOpen(true);
+          }}
+        >
+          create token
+        </button>
         <ConnectButton />
       </div>
-      <HoverEffect items={projects} />
+      <HoverEffect items={filteredContent} />
+
       <Modal />
+      <CreateToken />
     </div>
   );
 };
 
-export default Campaign;
+export default Explore;
 
 export const projects = [
   {
