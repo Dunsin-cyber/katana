@@ -123,6 +123,7 @@ const Modal = () => {
           connector: injected(),
         });
       }
+      console.log(pricePerSlice);
       const data = await writeContractAsync({
         chainId: bleTestnet.id,
         address: contractAddress, // change to receipient address

@@ -40,11 +40,11 @@ export const useUserContext = () => {
     setIsModalOpen(true);
   };
 
-  React.useEffect(() => {
-    if (address == null) {
-      router.push("/");
-    }
-  }, [address]);
+  // React.useEffect(() => {
+  //   if (address == null) {
+  //     router.push("/");
+  //   }
+  // }, [address]);
 
   return {
     isModalOpen,
