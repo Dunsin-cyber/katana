@@ -163,7 +163,7 @@ const Modal = () => {
         functionName: "approve",
         args: [contractAddress, parseEther(formatEther(content?.totalSupply))],
       });
-      toast.success("Approved!");
+      toast.success("Approved!!!");
       closeModal();
     } catch (err) {
       console.log(err);
