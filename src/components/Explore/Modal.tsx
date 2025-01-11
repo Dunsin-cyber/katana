@@ -166,7 +166,7 @@ const Modal = () => {
       toast.success("Approved!!!");
       closeModal();
     } catch (err) {
-      console.log(err);
+      // console.log(err);
       toast.error("Something Went Wrong");
     } finally {
       setLoading(false);
